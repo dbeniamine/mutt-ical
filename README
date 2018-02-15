@@ -13,6 +13,8 @@ Installing
 
 (Don't forget to add your email address)
 
+If you have several accounts configured on your mutt, you can putt them all on your mailcap entry, i.e `-e user1@domain1.tld,user2@domain2,tld` the script will answer using the invited address
+
 OSX Users
 ---------
 
