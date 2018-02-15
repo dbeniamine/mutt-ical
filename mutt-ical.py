@@ -56,7 +56,7 @@ def get_accept_decline():
             return 'DECLINED'
         elif ans.lower() =='t\n':
             return 'TENTATIVE'
-    
+
 def get_answer(invitation):
     # create
     ans = vobject.newFromBehavior('vcalendar')
@@ -157,10 +157,18 @@ def display(ical):
     sys.stdout.write("Title:\t" + summary + "\n")
     sys.stdout.write("To:\t")
     for attendee in attendees:
+        # Some invites does not have CN_param
+        try:
+            pre = attendee.CN_param + " <"
+            post = ">, "
+        except AttributeError:
+            pre=""
+            post=", "
+
         if hasattr(attendee,'EMAIL_param'):
-            sys.stdout.write(attendee.CN_param + " <" + attendee.EMAIL_param + ">, ")
+            sys.stdout.write(pre + attendee.EMAIL_param + post)
         else:
-            sys.stdout.write(attendee.CN_param + " <" + attendee.value.split(':')[1] + ">, ") #workaround for MS
+            sys.stdout.write(pre + attendee.value.split(':')[1] + post) #workaround for MS
     sys.stdout.write("\n\n")
     sys.stdout.write(description + "\n")
 
